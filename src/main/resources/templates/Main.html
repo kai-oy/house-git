@@ -1,0 +1,406 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>租房 - 用户管理</title>
+    <style type="text/css">
+        body {
+            width: 1024px;
+            height: 768px;
+            margin-left: 180px;
+        }
+
+        .logo {
+            float: left;
+            height: 60px;
+        }
+
+        .xinxi input {
+            padding: 5px 5px 5px 5px;
+            margin-top: 10px;
+            font-size: 14px;
+            color: #FFFFFF;
+            background-color: #69A54D;
+            border-color: #000000;
+        }
+
+        .heads {
+            height: 80px;
+        }
+
+        .heads .xinxi {
+            margin-right: 5px;
+        }
+
+        .heads .btn {
+            float: right;
+        }
+
+        .titles {
+            height: 25px;
+            margin-left: 10px;
+            border-color: #333333;
+        }
+
+        .title {
+            margin-top: 10px;
+            font-size: 14px;
+        }
+
+        .btns {
+            background-color: #69A54D;
+            border: none;
+        }
+
+        .tab {
+            margin-top: 15px;
+
+        }
+
+        .tab img {
+            border: 1px #666666 solid;
+        }
+
+        .tab dt {
+            margin-left: 40px;
+            font-size: 14px;
+        }
+
+        .tab dl {
+            margin-left: -15px;
+            width: 500px;
+        }
+
+        .tab dd p {
+            font-size: 12px;
+        }
+
+        .tab input {
+            padding: 2px 4px 2px 4px;
+            margin-left: 120px;
+            background-color: #69A54D;
+        }
+
+        .tab tr {
+            float: left;
+        }
+
+        hr {
+            width: 1000px;
+            color: #FFFFFF;
+        }
+
+        .fy {
+            border-bottom: 1px #CCCCCC solid;
+
+            margin-top: -14px;
+            width: 1000px;
+            margin-left: 5px;
+            height: 25px;
+            font-size: 14px;
+        <!-- background-color: #CCCCCC;
+        -->
+        }
+
+        .fy p {
+            float: left;
+            margin-top: 2px;
+        }
+
+        .fy a {
+            text-decoration: none;
+            border: 1px #CCCCCC solid;
+        }
+
+        .p1 {
+            width: 830px;
+        }
+
+        .foot hr {
+            color: #FFFFFF;
+            margin-right: 20px;
+            margin-top: 20px;
+        }
+
+        .foot {
+        }
+
+        .foot p {
+            color: #999999;
+            font-size: 13px;
+            margin-top: 5px;
+            float: left;
+            border-color: #FF0000;
+        }
+
+        .foot .p3 {
+            padding-right: 440px;
+        }
+
+        .foot .p4 {
+            width: 290px;
+            border-color: #FF0000;
+        }
+    </style>
+    <script src="asserts/js/jquery-3.3.1.min.js"></script>
+</head>
+
+<body>
+<div>
+    <div class="heads">
+        <div class="logo" id="msgg">
+            <!--			<img src="img/logo.gif" />-->
+        </div>
+        <div class="btn">
+            <form class="xinxi">
+                <input type="button" id="addHouse" value="发布房屋信息"/>
+                <input type="button" id="btnQUit" value="退&nbsp;&nbsp;&nbsp;出"/>
+            </form>
+        </div>
+    </div>
+    <div class="titles">
+        <form class="title" id="conditionFrom" onsubmit="return false">
+            标题：<input type="text" name="title" ID="title"/>
+            价格：<select id="price" name="price">
+            <option value="0">---请选择---</option>
+        </select>
+            面积：<select id="floorage" name="floorage">
+            <option value="0">---请选择---</option>
+        </select>
+            户型：<select id="houseType" name="houseType">
+            <option value="0">---请选择---</option>
+        </select>
+            区：<select id="District" name="District">
+            <option value="0">---请选择---</option>
+        </select>
+            街：<select id="Street" name="Street">
+            <option value="0">---请选择---</option>
+        </select>
+            <input type="submit" value="搜索房屋" class="btns"/>
+        </form>
+    </div>
+    <div>
+        <form>
+            <table class="tab" id="HouseTable">
+                <tr>
+                    <td><img src="asserts/img/thumb_house.gif"/></td>
+                    <td>
+                        <dl>
+                            <dt><a href="#">经济实惠房源出租</a></dt>
+                            <dd><p>海淀区中关村，50平米</p>
+                                <p>联系方式：13625853656</p></dd>
+                        </dl>
+                    </td>
+                    <td><input type="submit" value="修&nbsp;&nbsp;改"/></td>
+                    <td><input type="button" id="Dalete" value="删&nbsp;&nbsp;除"/></td>
+                </tr>
+                <tr>
+                    <td>
+                        <hr/>
+                    </td>
+                </tr>
+            </table>
+        </form>
+    </div>
+    <div class="fy">
+        <p id="page">1</p>
+        <p>/</p>
+        <p id="sum">1</p>
+        <p>页</p>
+        <p class="p2" style="float: right">
+            <a href="#" id="min">首页</a>
+            <a href="#" id="pageupper">上一页</a>
+            <a href="#" id="pagedown">下一页</a>
+            <a href="#" id="max">末页</a>
+        </p>
+    </div>
+    <div class="foot">
+        <hr/>
+        <p class="p4">关于我们&nbsp;・&nbsp;联系方式&nbsp;・&nbsp;意见反馈&nbsp;・&nbsp;帮助中心</p>
+    </div>
+</div>
+</body>
+<script src="asserts/js/option.js"></script>
+<script>
+    $(function () {
+
+        var house = $("#conditionFrom").serializeArray();
+        var page = 0;
+        queyHousetype();
+        $("#pageupper").click(function () {
+            page--;
+            PaginationMin()
+            showHouse(page, page * 4, house);
+        });
+
+        showHouse(page, 0, house);
+        PaginationMin();
+
+        function PaginationMin() {
+            if (page <= 0) {
+                page = 0;
+                $("#pageupper").hide();
+                $("#min").hide();
+            } else {
+                $("#pagedown").show();
+                $("#min").show();
+                $("#max").show();
+            }
+        }
+
+        function PaginationMax() {
+            var max = $("#sum").text();
+            if (page >= (max - 1)) {
+                $("#pagedown").hide();
+                $("#max").hide();
+                $("#min").show();
+                $("#pageupper").show();
+
+            } else {
+                $("#pageupper").show();
+                $("#max").show();
+                $("#min").show();
+            }
+        }
+
+        $("#pagedown").click(function () {
+            page++;
+            PaginationMax();
+            showHouse(page, page * 4, house);
+        });
+        $("#min").click(function () {
+            page = 0;
+            $("#pagedown").show();
+            $("#max").show();
+            $("#pageupper").hide();
+            $("#min").hide();
+            showHouse(page, page, house);
+        })
+
+        $("#max").click(function () {
+            var max = $("#sum").text();
+            page = max - 1;
+            $("#pagedown").hide();
+            $("#max").hide();
+            $("#pageupper").show();
+            $("#min").show();
+            showHouse(page, page * 4, house);
+        })
+        queyDistrict();
+        queyHouseByprice();
+        queyHouseByFloorage();
+        $("#addHouse").click(function () {
+            localStorage.setItem("id", "");
+            window.location.href = 'release.html'
+        })
+
+        $("#District").change(function () {
+            var districtId = $("#District").val();
+            if (districtId != 0) {
+                showStreet(districtId);
+            } else {
+                $('#Street option').not(":first").remove();
+            }
+        })
+
+        $("#btnQUit").click(function () {
+            if (confirm("确定要退出吗？")) {
+                $.ajax({
+                    url: "/quit",
+                    type: "get",
+                    data: {},
+                    success: function () {
+                        window.location.href = 'Login.html'
+                    }
+                })
+            }else {
+                return false
+            }
+        })
+        $("#conditionFrom").submit(function () {
+            page = 0;
+            $("#pagedown").show();
+            $("#pageupper").hide();
+            house = $("#conditionFrom").serializeArray();
+            showHouse(page, 0, house);
+            PaginationMax();
+        })
+
+//创建一个变量刷新或者搜索
+    })
+
+    function showHouse(page, rw, house) {
+        $('#HouseTable tr').remove();
+        var h = [];
+        console.log(house)
+        Object.assign(h, house)
+        h.push({name: "rownum", value: rw});
+        $.ajax({
+            url: "/queryHouse",
+            type: "post",
+            data: h,
+            success: function (map) {
+                var house = map.houselist;
+                $("#page").text((page + 1))
+                var pageCount = Math.ceil((map.count / 4));
+                if (pageCount<=1){
+                    $("#pagedown").hide();
+                    $("#pageupper").hide();
+                    $("#min").hide();
+                    $("#max").hide();
+                }
+                if (pageCount>1&&page==0){
+                    $("#pageupper").hide();
+                    $("#min").hide();
+                    $("#pagedown").show();
+                    $("#max").show();
+                }
+                $("#sum").text(pageCount);
+                for (var i = 0; i < house.length; i++) {
+                    var htext = "<tr id=house" + house[i].id + ">\n" +
+                        "<td><img src=\"asserts/img/thumb_house.gif\"/></td>\n" +
+                        "<td>" +
+                        "<dl>" +
+                        "<dt><a href=\"#\">" + house[i].title + "</a></dt>\n" +
+                        "<dd><p>" + house[i].distriName + "区" + house[i].streetName + "，" + house[i].floorage + "平米</p>\n" +
+                        "<p>联系方式：" + house[i].contact + "</p></dd>\n" +
+                        "</dl>\n" +
+                        "</td>\n" +
+                        "<td><input type=\"button\" onclick='update(" + house[i].id + "," + house[i].distriId +");' class=\"update\"  value=\"修&nbsp;&nbsp;改\"/></td>\n" +
+                        "<td><input type=\"button\" onclick='ConfirmDel(" + house[i].id + ")' value=\"删&nbsp;&nbsp;除\"/></td>\n" +
+                        "</tr>\n" +
+                        "<tr>\n" +
+                        "<td>\n" +
+                        "<hr/>\n" +
+                        "</td>\n" +
+                        "</tr>"
+                    $("#HouseTable").append(htext);
+                }
+            }
+        });
+    }
+
+    function ConfirmDel(id) {
+        if (confirm("确定要删除此信息吗？删除该信息将不可恢复！")) {
+            $.ajax({
+                url: "/daleteHouse",
+                type: "post",
+                data: {"id": id},
+                success: function (i) {
+                    $("msgg").text(i)
+                    showHouse(0, 0, $("#conditionFrom").serializeArray());
+                }
+            })
+        } else {
+            return false;
+        }
+    }
+
+
+    function update(values,distriId) {
+        // 为什么要用 localStorage 这个？
+        localStorage.setItem("id", values);
+        localStorage.setItem("distriId", distriId);
+        window.location.href = 'release.html'
+    }
+</script>
+</html>

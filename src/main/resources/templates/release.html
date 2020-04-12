@@ -1,0 +1,302 @@
+﻿<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>租房 -发布房屋信息</title>
+    <link type="text/css" rel="stylesheet" href="asserts/css/style.css"/>
+
+    <script src="asserts/js/jquery-3.3.1.min.js"></script>
+    <script type="text/javascript" src="asserts/js/function.js"></script>
+</head>
+<body>
+<div id="header" class="wrap">
+    <!--	<div id="logo"><img src="img/logo.gif" /></div>-->
+</div>
+<div id="regLogin" class="wrap">
+    <div class="dialog">
+        <dl class="clearfix">
+            <dt>新房屋信息发布</dt>
+            <dd class="past">填写房屋信息</dd>
+            <dd style="float: right"><a href="main.html">返回主页面</a></dd>
+        </dl>
+        <div class="box">
+            <form id="fromAddHouse" onsubmit="return false">
+                <div class="infos">
+                    <table class="field">
+                        <tr>
+                            <td class="field">标&nbsp;&nbsp;题：</td>
+                            <td><input type="text" class="text" name="title" id="title"/></td>
+                        </tr>
+                        <tr>
+                            <td class="field">户&nbsp;&nbsp;型：</td>
+                            <td><select id="houseType" name="houseType">
+                                <option value="0">---请选择---</option>
+                            </select></td>
+                        </tr>
+                        <tr>
+                            <td class="field">面&nbsp;&nbsp;积：</td>
+                            <td><input type="text" class="text" name="floorage" id="floorage"/></td>
+                        </tr>
+                        <tr>
+                            <td class="field">价&nbsp;&nbsp;格：</td>
+                            <td><input type="text" class="text" name="price" id="price"/></td>
+                        </tr>
+                        <tr>
+                            <td class="field">房产证日期：</td>
+                            <td><input type="date" class="text" name="pubdate" id="pubdate" max="3030-12-01"/></td>
+                        </tr>
+                        <tr>
+                            <td class="field">位&nbsp;&nbsp;置：</td>
+                            <td>区：
+                                <select id="District" name="District">
+                                    <option value="0">---请选择---</option>
+                                </select>
+                                街：<select id="Street" name="Street">
+                                    <option value="0">---请选择---</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="field">联系方式：</td>
+                            <td><input type="tel" maxlength="11" class="text" id="contact" name="contact"/></td>
+                        </tr>
+                        <tr>
+                            <td class="field">详细信息：</td>
+                            <td><textarea name="description" id="description" style="resize: none;"></textarea>
+                            </td>
+                        </tr>
+                    </table>
+                    <div style="color:red;text-align: center;" id="message"></div>
+                    <div class="buttons"><input type="submit" name="submit" id="fromsubmit"
+                                                style="background:url(asserts/img/btn_bg.gif);" value="立即发布"/></div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<div id="footer" class="wrap">
+    <dl>
+        <dd>关于我们 · 联系方式 · 意见反馈 · 帮助中心</dd>
+    </dl>
+</div>
+</body>
+<script src="asserts/js/option.js"></script>
+<script>
+    var id = localStorage.getItem("id")
+    var distriId = localStorage.getItem("distriId")
+    showStreet(distriId);
+    queyDistrict();
+    queyHouseByFloorage();
+    queyHousetype();
+
+    $("#District").change(function () {
+        var districtId = $("#District").val();
+        if (districtId != 0) {
+            showStreet(districtId);
+        } else {
+            $('#Street option').not(":first").remove();
+        }
+    })
+    $("#title").blur(
+        function () {
+            checkTile()
+        });
+    $("#houseType").blur(
+        function () {
+            checkType()
+        });
+    $("#floorage").blur(
+        function () {
+            checkFloorage()
+        });
+    $("#Street").blur(
+        function () {
+            checkStreet()
+        });
+    $("#District").blur(
+        function () {
+            checkDistrict()
+        });
+    var tel = /^[1][3 / 5 / 8][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]$/;
+
+    $("#contact").blur(
+        function () {
+            checkContact()
+        });
+    $("#price").blur(
+        function () {
+            checkPrice()
+        });
+    $("#pubdate").blur(
+        function () {
+            checkPubdate()
+        });
+    $("#description").blur(
+        function () {
+            checkDescription()
+        });
+
+
+    function checkDescription() {
+        var value = $("#description").val();
+        if (value == null || "" == value) {
+            $("#message").text("详细信息不能为空")
+        } else {
+            $("#message").text("");
+            return true;
+        }
+        return false;
+    }
+
+    function checkPubdate() {
+        var value = $("#pubdate").val();
+        if (value == null || "" == value) {
+            $("#message").text("房产证日期不能为空")
+        } else {
+            return true;
+            $("#message").text("");
+        }
+        return false;
+    }
+    //需要长度一样
+    var Inert = /[^"d]/g;
+    function checkPrice() {
+        var value = $("#price").val();
+        if (value == null || "" == value|| value == 0) {
+            $("#message").text("价格不能为空")
+        } else if (!value.match(Inert)) {
+            $("#message").text("请输入正确的价格")
+            $("#price").val("");
+        } else {
+            $("#message").text("");
+            return true;
+        }
+        return false;
+    }
+
+    function checkContact() {
+        var value = $("#contact").val();
+        if (value == null || "" == value) {
+            $("#message").text("请输入联系方式")
+        } else if (value.length < 11) {
+            $("#message").text("请输入正确的联系方式!号码小于11位");
+        } else if (!value.match(tel)) {
+            $("#contact").val("");
+            $("#message").text("请输入正确的联系方式 ");
+        } else {
+            return true;
+            $("#message").text("");
+        }
+        return false;
+    }
+
+    function checkStreet() {
+        var value = $("#Street").val();
+        if (value == 0) {
+            $("#message").text("请选择街道")
+        } else {
+            $("#message").text("");
+            return true;
+        }
+        return false;
+    }
+
+    function checkDistrict() {
+        var value = $("#District").val();
+        if (value == 0) {
+            $("#message").text("请选择区域")
+        } else {
+            $("#message").text("");
+            return true;
+        }
+        return false;
+    }
+
+    function checkFloorage() {
+        var value = $("#floorage").val();
+        if (value == null || "" == value|| value == 0) {
+            $("#message").text("面积不能为空")
+        } else if (!value.match(Inert)) {
+            $("#message").text("请输入正确的面积")
+            $("#floorage").val("");
+        } else {
+            $("#message").text("");
+            return true;
+        }
+        return false;
+    }
+
+    function checkType() {
+        var value = $("#houseType").val();
+        if (value == 0) {
+            $("#message").text("请选择户型")
+        } else {
+            $("#message").text("");
+            return true;
+        }
+        return false;
+    }
+
+    function checkTile() {
+        var value = $("#title").val();
+        if (value == null || "" == value) {
+            $("#message").text("标题不能为空")
+        } else {
+            $("#message").text("");
+            return true;
+        }
+        return false;
+    }
+
+    $("#fromAddHouse").submit(function () {
+        var data = $(this).serializeArray();
+        data.push({name:"id",value:id})
+        if (checkPubdate() && checkContact() && checkFloorage() && checkDistrict() && checkStreet() && checkType() && checkTile() && checkDescription() && checkPrice()) {
+            $.ajax({
+                url: "/addHouse",
+                data: data,
+                type: "post",
+                dataType: "json",
+                success: function (map) {
+                    $("#message").text(map.msg)
+                    if(map.isnotIs){
+                        setInterval("clock();",1000);
+                    }
+                }
+            })
+        }
+    });
+    var time = 4;
+    function clock(){
+        time--;
+        $("#message").text("已添加成功,将在"+time+"秒后自动跳转到主页面");
+        if(time==0){
+            window.location.href="main.html";
+
+        }
+
+    }
+    housebyid();
+    function housebyid() {
+        if (id != null && id != "") {
+            $.ajax({
+                url: "/queryHouseById",
+                type: "post",
+                data: {"id": id},
+                success: function (house) {
+                    $("#title").val(house.title);
+                    $("#houseType").val(house.typeId);
+                    $("#floorage").val(house.floorage);
+                    $("#price").val(house.price);
+                    var time = new Date(house.pubDate)
+                    var datetime = time.getFullYear()+"-"+("0" + (time.getMonth() + 1)).slice(-2)+"-"+("0" + (time.getDay() + 1)).slice(-2)
+                    $("#pubdate").val(datetime);
+                    $("#District").val(house.districtId);
+                    $("#contact").val(house.contact);
+                    $("#description").val(house.description);
+                    $("#Street").val(house.streetId);
+                }
+            })
+        }
+    }
+</script>
+</html>

@@ -1,0 +1,157 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>租房 - 用户登录</title>
+    <style type="text/css">
+        .logo {
+            width: 80%;
+            margin-left: 180px;
+            height: 110px;
+        }
+
+        .login {
+            width: 500px;
+            height: 300px;
+            margin: auto;
+            background-color: #f0f5f8;
+        }
+
+        .login p {
+            padding-top: 10px;
+            height: 10px;
+            padding-left: 30px;
+        }
+
+        .login hr {
+            margin-left: 25px;
+            margin-right: 25px;
+            color: #FFFFFF;
+        }
+
+        .f {
+            margin-left: 50px;
+            margin-top: 50px;
+            margin-right: 20px;
+            margin-bottom: 20px;
+        }
+
+        .ftext {
+            width: 250px;
+        }
+
+        .imgb {
+            width: 125px;
+            height: 36px;
+            border: none;
+            background-image: url(/asserts/img/btn_bg.gif);
+            margin-left: 120px;
+            margin-top: 10px;
+            font-size: 18px;
+            color: #FFFFFF;
+            font-weight: bold;
+        }
+
+        .foot hr {
+            color: #FFFFFF;
+            margin-left: 20px;
+            margin-right: 20px;
+            margin-top: 50px;
+        }
+
+        .foot p {
+            color: #999999;
+
+            font-size: 13px;
+            margin-top: 5px;
+            margin-left: 20px;
+            float: left;
+            border-color: #FF0000;
+        }
+
+        .foot .p3 {
+            padding-right: 700px;
+        }
+
+        .foot .p4 {
+            width: 290px;
+            border-color: #FF0000;
+        }
+    </style>
+</head>
+
+<body>
+<div class="logo">
+    <!--    <img src="img/logo.gif"/>-->
+    <a href="register.html" style="float: right">注册</a>
+</div>
+<div class="login" style="font-weight: 700;">
+    <div style="transform:translateY(50%);-ms-transform:translateY(50%);-webkit-transform:translateY(50%);">
+        <p>用户登录</p>
+        <hr/>
+    </div>
+    <form class="f" id="fromUsers">
+        用户名：<input type="text" class="ftext" name="userName" id="userName"/><br/><br/>
+        密&nbsp&nbsp&nbsp码：<input type="password" class="ftext" name="PassWord" id="PassWord"/>
+        <p style="color:#c32218" id="msg" align="center"></p>
+        <input type="submit" value="立即登录" class="imgb" id="Login"/>
+    </form>
+</div>
+<div class="foot" align="center">
+    <hr/>
+    <p class="p4">关于我们&nbsp;·&nbsp;联系方式&nbsp;·&nbsp;意见反馈&nbsp;·&nbsp;帮助中心</p>
+</div>
+</body>
+<script src="asserts/js/jquery-3.3.1.js"></script>
+<script>
+    $(function () {
+
+        $("#userName").blur(function () {
+            name("账号", $("#userName").val())
+        })
+
+        $("#PassWord").blur(function () {
+            name("密码", $("#PassWord").val())
+        })
+
+
+        function name(ts, name) {
+            if (name == null || name == "") {
+                $("#msg").text(ts + "不能为空")
+                return false;
+            } else {
+                return true;
+            }
+        }
+
+        $("#fromUsers").submit(function () {
+                var username = $("#userName").val();
+                var password = $("#PassWord").val();
+                // 1. 不刷新页面
+                // 2. 异步提交，就会回调。异步请求后会调用回调方法。
+                if (name("", username) && name("", password)) {
+                    $.ajax({
+                        url: "/loginUsers",
+                        type: "post",
+                        data: {"username": username, "password": password},
+                        success: function (data) {
+                            if (data.isLogin) {
+                                $("#msg").text(data.msg)
+                                window.location.href = 'main.html'
+                            } else {
+                                $("#msg").text(data.msg)
+
+                            }
+                        }, error: function () {
+                            $("#msg").text("异常")
+                        }
+                    });
+                }
+                // }
+                //阻止表单的默认提交
+                return false;
+            }
+        )
+    })
+</script>
+<script src="asserts/js/jquery-3.3.1.min.js" type="text/javascript"></script>
+</html>
