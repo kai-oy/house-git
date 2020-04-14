@@ -148,6 +148,7 @@
 <div>
     <div class="heads">
         <div class="logo" id="msgg">
+            <a href="#"  id="admin"></a>
             <!--			<img src="img/logo.gif" />-->
         </div>
         <div class="btn">
@@ -222,10 +223,17 @@
 <script src="asserts/js/option.js"></script>
 <script>
     $(function () {
-
+        var loginUser = localStorage.getItem("loginUser")
         var house = $("#conditionFrom").serializeArray();
         var page = 0;
         queyHousetype();
+
+        $("#admin").text(loginUser);
+        $("#admin").click(function () {
+                house.push({name:"admin",value:"1"})
+                showHouse(page, 0, house)
+        });
+
         $("#pageupper").click(function () {
             page--;
             PaginationMin()
@@ -312,7 +320,7 @@
                         window.location.href = 'Login.html'
                     }
                 })
-            }else {
+            } else {
                 return false
             }
         })
@@ -342,13 +350,13 @@
                 var house = map.houselist;
                 $("#page").text((page + 1))
                 var pageCount = Math.ceil((map.count / 4));
-                if (pageCount<=1){
+                if (pageCount <= 1) {
                     $("#pagedown").hide();
                     $("#pageupper").hide();
                     $("#min").hide();
                     $("#max").hide();
                 }
-                if (pageCount>1&&page==0){
+                if (pageCount > 1 && page == 0) {
                     $("#pageupper").hide();
                     $("#min").hide();
                     $("#pagedown").show();
@@ -365,7 +373,7 @@
                         "<p>联系方式：" + house[i].contact + "</p></dd>\n" +
                         "</dl>\n" +
                         "</td>\n" +
-                        "<td><input type=\"button\" onclick='update(" + house[i].id + "," + house[i].distriId +");' class=\"update\"  value=\"修&nbsp;&nbsp;改\"/></td>\n" +
+                        "<td><input type=\"button\" onclick='update(" + house[i].id + "," + house[i].distriId + ");' class=\"update\"  value=\"修&nbsp;&nbsp;改\"/></td>\n" +
                         "<td><input type=\"button\" onclick='ConfirmDel(" + house[i].id + ")' value=\"删&nbsp;&nbsp;除\"/></td>\n" +
                         "</tr>\n" +
                         "<tr>\n" +
@@ -396,7 +404,7 @@
     }
 
 
-    function update(values,distriId) {
+    function update(values, distriId) {
         // 为什么要用 localStorage 这个？
         localStorage.setItem("id", values);
         localStorage.setItem("distriId", distriId);

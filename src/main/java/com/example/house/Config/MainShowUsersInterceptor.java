@@ -9,7 +9,10 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-public class MainShowUsersInterceptor implements HandlerInterceptor {
+public class   MainShowUsersInterceptor implements HandlerInterceptor {
+
+
+
     /**取出用户名判断是否有值进行登录拦截
      * @param request
      * @param response

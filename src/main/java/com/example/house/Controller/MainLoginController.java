@@ -72,7 +72,8 @@ public class MainLoginController {
 
     @RequestMapping("/queryHouse")
     @ResponseBody
-    public Map<Object, Object> queryHouse(HttpServletRequest request, HttpServletResponse response) {
+    public Map<Object, Object> queryHouse(HttpServletRequest request, HttpServletResponse response,HttpSession session) {
+        String admin = request.getParameter("admin");
         String rownum = request.getParameter("rownum");
         String price = request.getParameter("price");
         String floorage = request.getParameter("floorage");
@@ -105,6 +106,11 @@ public class MainLoginController {
         }
         if (street!=null&&!"".equals(street)){
             streetNumber= Integer.parseInt(street);
+        }
+        Object userid;
+        if (admin!=null&&!"".equals(admin)){
+            userid =  session.getAttribute("userid");
+            userNumber = (int) userid;
         }
         List<HouseVoAllTable> houseList = houseServiceImpl.queryHouseConAllTable(rownNumber, priceNumber, userNumber, title, streetNumber, districtNumber, houseTypeNumber, floorageNumber);
         int count = houseServiceImpl.countHouseNumber(priceNumber, userNumber, title, streetNumber, districtNumber, houseTypeNumber, floorageNumber);

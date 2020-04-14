@@ -17,8 +17,11 @@ class HouseApplicationTests {
     @Autowired
     HouseDao districtDao;
 
+   private   final String name = "sd";
     @Test
     void contextLoads() {
-        System.out.println(Md5.getMD5("123456"));
+        System.out.println(name);
+//        name = "123123";
+        System.out.println();
     }
 }

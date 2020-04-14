@@ -136,6 +136,7 @@
                         success: function (data) {
                             if (data.isLogin) {
                                 $("#msg").text(data.msg)
+                                localStorage.setItem("loginUser", username);
                                 window.location.href = 'main.html'
                             } else {
                                 $("#msg").text(data.msg)
