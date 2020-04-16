@@ -237,6 +237,7 @@
         $("#pageupper").click(function () {
             page--;
             PaginationMin()
+            house.push({name:"admin",value:"1"})
             showHouse(page, page * 4, house);
         });
 
@@ -273,6 +274,7 @@
         $("#pagedown").click(function () {
             page++;
             PaginationMax();
+            house.push({name:"admin",value:"1"})
             showHouse(page, page * 4, house);
         });
         $("#min").click(function () {
@@ -280,6 +282,7 @@
             $("#pagedown").show();
             $("#max").show();
             $("#pageupper").hide();
+            house.push({name:"admin",value:"1"})
             $("#min").hide();
             showHouse(page, page, house);
         })
@@ -291,6 +294,7 @@
             $("#max").hide();
             $("#pageupper").show();
             $("#min").show();
+            house.push({name:"admin",value:"1"})
             showHouse(page, page * 4, house);
         })
         queyDistrict();
