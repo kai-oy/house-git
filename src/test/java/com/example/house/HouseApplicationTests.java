@@ -22,8 +22,24 @@ class HouseApplicationTests {
 
     @Test
     void contextLoads() {
-        hashTableandhashMap();
+        testIterator();
     }
+
+    public void testIterator(){
+        ArrayList<Street> list = new ArrayList();
+        Street street = new Street(1,"一",2);
+        list.add(street);
+        Street street2 = new Street(2,"二",4);
+        list.add(street2);
+        Street street3 = new Street(3,"三",5);
+        list.add(street3);
+        System.out.println(list);
+        for (Street street1 : list) {
+            street1.setName("不知道");
+        }
+        System.out.println(list);
+    }
+
 
     public void hashTableandhashMap() {
         Hashtable<String, String> hashtable = new Hashtable<>();
@@ -45,6 +61,8 @@ class HouseApplicationTests {
     }
 
     public void testList() {
+        StringBuilder stringBuilder = new StringBuilder();
+        StringBuffer stringBuffer = new StringBuffer();
         LinkedList<Integer> linkedlist = new LinkedList<>();
         ArrayList<Integer> arrayList = new ArrayList<>();
         for (int i = 0; i < 8000; i++) {
