@@ -60,14 +60,14 @@ public class AlipayTrade {
      * @return true成功
      * 备注:验签成功后，按照支付结果异步通知中的描述(二次验签接口,貌似称为历史接口了)
      */
-    public boolean verifyNotify(HttpServletRequest request) throws AlipayApiException {
-        Map<String,String> paranMap = SignUtil.request2Map(request);
-        logger.debug("支付宝回调参数:"+paranMap.toString());
-        boolean isVerify = false;
-        if (AlipayConfig.SUCCESS_REQUEST.equals(paranMap.get("trade_status")) || AlipayConfig.TRADE_CLOSED.equals(paranMap.get("trade_status"))) {
-            isVerify = AlipaySignature.rsaCheckV1(paranMap, AlipayConfig.ALIPAY_PUBLIC_KEY, AlipayConfig.CHARSET); //调用SDK验证签名
-        }
-        logger.debug("支付宝验签结果"+isVerify);
-        return isVerify;
-    }
+//    public boolean verifyNotify(HttpServletRequest request) throws AlipayApiException {
+//        Map<String,String> paranMap = SignUtil.request2Map(request);
+//        logger.debug("支付宝回调参数:"+paranMap.toString());
+//        boolean isVerify = false;
+//        if (AlipayConfig.SUCCESS_REQUEST.equals(paranMap.get("trade_status")) || AlipayConfig.TRADE_CLOSED.equals(paranMap.get("trade_status"))) {
+//            isVerify = AlipaySignature.rsaCheckV1(paranMap, AlipayConfig.ALIPAY_PUBLIC_KEY, AlipayConfig.CHARSET); //调用SDK验证签名
+//        }
+//        logger.debug("支付宝验签结果"+isVerify);
+//        return isVerify;
+//    }
 }

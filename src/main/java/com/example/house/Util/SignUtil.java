@@ -1,7 +1,5 @@
 package com.example.house.Util;
 
-import org.apache.commons.lang3.ArrayUtils;
-import org.apache.commons.lang3.StringUtils;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
@@ -43,13 +41,14 @@ public class SignUtil {
             for (Map.Entry<String, Object> entry : map.entrySet()) {
                 String key = entry.getKey();
                 String value = String.valueOf(entry.getValue());
-                if (StringUtils.isNotEmpty(key) && !ArrayUtils.contains(ignoreKeys, key)
-                        && (!ignoreEmptyValue || StringUtils.isNotEmpty(value))) {
-                    list.add(key + "=" + (value != null ? value : ""));
-                }
+//                if (StringUtils.isNotEmpty(key) && !ArrayUtils.contains(ignoreKeys, key)
+//                        && (!ignoreEmptyValue || StringUtils.isNotEmpty(value))) {
+//                    list.add(key + "=" + (value != null ? value : ""));
+//                }
             }
         }
-        return (prefix != null ? prefix : "") + StringUtils.join(list, separator) + (suffix != null ? suffix : "");
+        return null;
+//        return (prefix != null ? prefix : "") + StringUtils.join(list, separator) + (suffix != null ? suffix : "");
     }
 
     /**
@@ -57,39 +56,39 @@ public class SignUtil {
      * @param request 该请求
      * @return Map<String,String>格式的参数
      */
-    public static Map<String,String> request2Map(HttpServletRequest request){
-        Enumeration<String> names = request.getParameterNames();
-        Map<String, String> resData = new HashMap<String, String>();
-        while (names.hasMoreElements()) {
-            String name = names.nextElement();
-            resData.put(name, request.getParameter(name));
-        }
-        return resData;
-    }
+//    public static Map<String,String> request2Map(HttpServletRequest request){
+//        Enumeration<String> names = request.getParameterNames();
+//        Map<String, String> resData = new HashMap<String, String>();
+//        while (names.hasMoreElements()) {
+//            String name = names.nextElement();
+//            resData.put(name, request.getParameter(name));
+//        }
+//        return resData;
+//    }
 
     /**
      * Bean转map
      * @param bean 要转的bean
      * @return 返回一个TreeMap
      */
-    public static TreeMap<String, String> bean2TreeMap(Object bean) {
-        TreeMap<String, String> requestMap = new TreeMap<String, String>();
-        Class<?> cls = bean.getClass();
-        Field[] fields = cls.getDeclaredFields();
-        try {
-            for (int i = 0; i < fields.length; i++) {
-                String key = fields[i].getName();
-                fields[i].setAccessible(true);
-                Object value = fields[i].get(bean);
-                if ("sign".equals(key) || value == null || StringUtils.isEmpty(value.toString())) {
-                    continue;
-                }
-                requestMap.put(key, value.toString());
-            }
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-        }
-        return requestMap;
-    }
+//    public static TreeMap<String, String> bean2TreeMap(Object bean) {
+//        TreeMap<String, String> requestMap = new TreeMap<String, String>();
+//        Class<?> cls = bean.getClass();
+//        Field[] fields = cls.getDeclaredFields();
+//        try {
+//            for (int i = 0; i < fields.length; i++) {
+//                String key = fields[i].getName();
+//                fields[i].setAccessible(true);
+//                Object value = fields[i].get(bean);
+//                if ("sign".equals(key) || value == null || StringUtils.isEmpty(value.toString())) {
+//                    continue;
+//                }
+//                requestMap.put(key, value.toString());
+//            }
+//        } catch (IllegalAccessException e) {
+//            e.printStackTrace();
+//        }
+//        return requestMap;
+//    }
 
 }

@@ -1,35 +1,10 @@
 package com.example.house;
 
-import com.example.house.Config.Md5;
-import com.example.house.Dao.DistrictDao;
-import com.example.house.Dao.HouseDao;
-import com.example.house.Dao.UsersDao;
-import com.example.house.Entity.*;
-import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
+import com.example.house.Entity.Street;
 
-import javax.swing.plaf.PanelUI;
 import java.util.*;
-import java.util.concurrent.ConcurrentHashMap;
 
-@SpringBootTest
-class HouseApplicationTests {
-
-    @Autowired
-    HouseDao districtDao;
-
-    private final String name = "sd";
-
-    @Test
-    void contextLoads() {
-//        String s = TestStrign("sdasdafgagafgagafasd", "gaga");
-////        System.out.println(s);
-//        String[] strs= { "abcd", "abcc","adbc", "aaaa" };
-//        System.out.println("共有"+replaceSpace(strs));// c
-        testSta();
-    }
-
+public class TestClass {
     public void palinDromic(String str) {
         char[] chars = str.toCharArray();
         HashMap<Character, Integer> map = new HashMap<>();
@@ -85,6 +60,7 @@ class HouseApplicationTests {
             }
         }
     }
+
 
     public static String replaceSpace(String[] strs) {
         if (!chechStrs(strs)) {
@@ -152,6 +128,7 @@ class HouseApplicationTests {
         return b ? "不存在" : strInTwo + "存在" + strIn;
     }
 
+
     public void testStack() {
 
         Stack stack = new Stack();
@@ -190,6 +167,7 @@ class HouseApplicationTests {
         }
         System.out.println(list);
     }
+
 
     public void hashTableandhashMap() {
         Hashtable<String, String> hashtable = new Hashtable<>();
